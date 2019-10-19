@@ -27,9 +27,9 @@ class JumpingSpider:
     def go(self):
     #-----------To Drive the Motors Forward------------# 
             print("Run")
-            ab.on()
-            m1.forward(100)
+            self.ab.on()
+            self.m1.forward(100)
             time.sleep(5)
-            m1.stop()
-            ab.off()
+            self.m1.stop()
+            self.ab.off()
 
