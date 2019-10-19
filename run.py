@@ -14,5 +14,5 @@ def get_health():
   return spider.instance()
 
 if __name__ == '__main__':
-    api.run(host='0.0.0.0', port=8080, debug=True, threaded=false)
+    api.run(host='0.0.0.0', port=8080, debug=False, threaded=True)
 
