@@ -21,15 +21,22 @@ class JumpingSpider:
     af = PiMotor.Arrow(3) 
     ar = PiMotor.Arrow(4)
 
+    instance = 1
+
     ##This segment drives the motors in the direction listed below:
     ## forward and reverse takes speed in percentage(0-100)
 
     def go(self):
     #-----------To Drive the Motors Forward------------# 
+        instance = instance + 1
         print("Run")
         self.ab.on()
         self.m1.forward(100)
         time.sleep(5)
         self.m1.stop()
         self.ab.off()
-        return "done";
+        return "done"
+
+    def instance(self):
+    #-----------To Drive the Motors Forward------------# 
+        return instance
