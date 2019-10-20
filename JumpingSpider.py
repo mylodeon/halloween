@@ -22,6 +22,7 @@ class JumpingSpider:
         return result
 
     playfile = True
+    audioPlayer = None
 
     def startPlayingFile(self):
         if not self.playfile:
@@ -36,7 +37,7 @@ class JumpingSpider:
                 basecmd = ["C:\\Program Files\\VideoLAN\\VLC\\vlc.exe"]
 
             myfile = "jump.wav"
-            Popen(basecmd + [myfile])
+            self.audioPlayer = Popen(basecmd + [myfile])
 
         return False
 
@@ -57,6 +58,9 @@ class JumpingSpider:
 
         print("Bringing spider back in")
         result = await self.control.spinMotor(0, 20, 1, lambda: not self.control.isButtonPressed(0))
+
+        if (self.audioPlayer)
+            self.audioPlayer.wait()
 
         self.control.disableLed(0)
         print("JumpingSpider done")
