@@ -12,10 +12,10 @@ class ControlModule:
         Device.pin_factory = MockFactory(pin_class=MockPWMPin)
 
     #Name of Individual MOTORS 
-    motor0 = Motor(forward=15, backward=13)
-    motor1 = Motor(forward=16, backward=18)
-    motor2 = Motor(forward=21, backward=23)
-    motor3 = Motor(forward=24, backward=26)
+    motor0 = Motor(forward=15, backward=13, enable=11)
+    motor1 = Motor(forward=16, backward=18, enable=22)
+    motor2 = Motor(forward=21, backward=23, enable=19)
+    motor3 = Motor(forward=24, backward=26, enable=32)
 
     motors = [motor0, motor1, motor2, motor3]
 
