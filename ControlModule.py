@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 from gpiozero.pins.mock import MockFactory, MockPWMPin
-from gpiozero import Device, Motor, Button
+from gpiozero import Device, Motor, Button, LED
 from time import sleep
 from threading import Lock
 import asyncio
@@ -29,6 +29,13 @@ class ControlModule:
     button3 = Button(26)
 
     buttons = [button0, button1, button2,button3]
+
+    led0 = LED(19)
+    led1 = LED(13)
+    led2 = LED(6)
+    led3 = LED(5)
+
+    leds = [led0, led1, led2, led3]
 
     if sys.platform == 'win32':
         Device.pin_factory.pin(16).drive_low()
@@ -96,7 +103,7 @@ class ControlModule:
         while remainingDuration > 0:
             if stopRoutine:
                 if stopRoutine():
-                    return "Stopped"
+                    break
 
             await asyncio.sleep(0.05)
             remainingDuration -= 0.05
