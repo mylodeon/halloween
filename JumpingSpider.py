@@ -3,6 +3,9 @@
 import time
 import ControlModule
 import asyncio
+import os
+import sys
+from subprocess import Popen
 
 class JumpingSpider:
     def __init__(self):
@@ -10,6 +13,7 @@ class JumpingSpider:
 
     async def reset(self):
         print("Resetting JumpingSpider")
+        os.system('pkill -9 mplayer')
         result = await self.control.spinMotor(0, 60, 1, lambda: self.control.isButtonPressed(0))
         print("Done resetting JumpingSpider")
         return result
@@ -22,7 +26,15 @@ class JumpingSpider:
 
         print("Spider is locked and loaded - performing initial jump")
         result = await self.control.spinMotor(0, 4, 1)
-        
+
+        basecmd = ["mplayer", "-ao", "alsa:device=bluetooth"]
+
+        if sys.platform == 'win32':
+            basecmd = ["C:\\Program Files\\VideoLAN\\VLC\\vlc.exe"]
+
+        myfile = "jump.wav"
+        Popen(basecmd + [myfile])
+
         print("Waiting for effect")
         result = await asyncio.sleep(3.5)
 
