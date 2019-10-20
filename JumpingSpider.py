@@ -11,9 +11,12 @@ class JumpingSpider:
     def __init__(self):
         self.control = ControlModule.ControlModule(self.go)
 
+    def stopAudio(self):
+        os.system('pkill -9 mplayer')
+    
     async def reset(self):
         print("Resetting JumpingSpider")
-        os.system('pkill -9 mplayer')
+        self.stopAudio()
         result = await self.control.spinMotor(0, 60, 1, lambda: self.control.isButtonPressed(0))
         print("Done resetting JumpingSpider")
         return result
@@ -63,4 +66,5 @@ class JumpingSpider:
         return self.control.start()
 
     def stop(self):
+        self.stopAudio()
         return self.control.stop()
