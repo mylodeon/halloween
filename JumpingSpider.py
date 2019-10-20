@@ -28,7 +28,7 @@ class JumpingSpider:
         result = await self.control.spinMotor(0, 5, 0)
         result = await self.control.spinMotor(1, 5, 0)
         result = await self.control.spinMotor(2, 5, 0)
-        result = await self.control.spinMotor(3, 5, 01)
+        result = await self.control.spinMotor(3, 5, 0)
         print("Go " + str(self.iter) + " done")
         return result
 
