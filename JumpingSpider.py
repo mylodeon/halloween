@@ -18,6 +18,25 @@ class JumpingSpider:
         print("Done resetting JumpingSpider")
         return result
 
+    playfile = True
+
+    def startPlayingFile(self):
+        if not self.playfile:
+            return False
+
+        if not self.control.isButtonPressed(0):
+            self.playfile = False
+
+            basecmd = ["mplayer", "-ao", "alsa:device=bluealsa"]
+            if sys.platform == 'win32':
+                basecmd = ["C:\\Program Files\\VideoLAN\\VLC\\vlc.exe"]
+
+            myfile = "jump.wav"
+            Popen(basecmd + [myfile])
+
+        return False
+
+
     async def go(self):
         if not self.control.isButtonPressed(0):
             return await self.reset()
@@ -25,16 +44,9 @@ class JumpingSpider:
         self.control.enableLed(0)
 
         print("Spider is locked and loaded - performing initial jump")
-        task = self.control.spinMotor(0, 4, 1)
-
-        basecmd = ["mplayer", "-ao", "alsa:device=bluealsa"]
-        await task
-
-        if sys.platform == 'win32':
-            basecmd = ["C:\\Program Files\\VideoLAN\\VLC\\vlc.exe"]
-
-        myfile = "jump.wav"
-        Popen(basecmd + [myfile])
+        self.playfile = True
+        result = await self.control.spinMotor(0, 4, 1, lambda: self.startPlayingFile())
+        self.playfile = True
 
         print("Waiting for effect")
         result = await asyncio.sleep(3.5)
