@@ -59,7 +59,7 @@ class JumpingSpider:
         print("Bringing spider back in")
         result = await self.control.spinMotor(0, 20, 1, lambda: not self.control.isButtonPressed(0))
 
-        if (self.audioPlayer)
+        if self.audioPlayer:
             self.audioPlayer.wait()
 
         self.control.disableLed(0)
