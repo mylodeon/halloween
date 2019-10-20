@@ -36,7 +36,7 @@ class JumpingSpider:
             self.busy = 1
             print("Target")
             print(threading.current_thread().ident)
-            asyncio.run(self.go())
+            loop.run_until_complete(self.go())
             print("Target done")
         finally:
             self.busy = 0
