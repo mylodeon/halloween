@@ -66,8 +66,10 @@ class ControlModule:
 
             motor = self.motors[motorNumber]
             if (direction == 1):
+                print("Forward")
                 motor.forward(1)
             else:
+                print("Backward")
                 motor.backward(1)
             
             remainingDuration = duration
@@ -78,6 +80,7 @@ class ControlModule:
                 if (self.isCancelled(runId)):
                     break
 
+            print("Stop")
             motor.stop()
 
         finally:
