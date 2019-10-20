@@ -18,6 +18,8 @@ class JumpingSpider:
         if not self.control.isButtonPressed(0):
             return await self.reset()
 
+        self.control.enableLed(0)
+
         print("Spider is locked and loaded - performing initial jump")
         result = await self.control.spinMotor(0, 4, 1)
         
@@ -27,6 +29,7 @@ class JumpingSpider:
         print("Bringing spider back in")
         result = await self.control.spinMotor(0, 20, 1, lambda: not self.control.isButtonPressed(0))
 
+        self.control.disableLed(0)
         print("JumpingSpider done")
         return result
 

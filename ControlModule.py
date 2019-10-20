@@ -82,6 +82,14 @@ class ControlModule:
         result = button.is_pressed
         return result
 
+    def enableLed(self, ledNumber):
+        led = self.leds[ledNumber]
+        led.on()
+        
+    def disableLed(self, ledNumber):
+        led = self.leds[ledNumber]
+        led.off()
+
     async def spinMotor(self, motorNumber, duration, direction=1, stopRoutine=None):
         if (self.isCancelled()):
             return "Cancelled"
