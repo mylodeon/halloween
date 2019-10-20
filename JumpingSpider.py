@@ -12,7 +12,6 @@ class JumpingSpider:
     control = ControlModule.ControlModule()
     iter = 1
 
-    loop = asyncio.new_event_loop()
     pool = concurrent.futures.ProcessPoolExecutor()
 
     busy = 0
@@ -33,10 +32,10 @@ class JumpingSpider:
     def target(self, timeout=None):
         print("Target  thread:" + str(threading.current_thread().ident))
         try:
+            loop = asyncio.new_event_loop()
             self.busy = 1
             print("Target")
             print(threading.current_thread().ident)
-            asyncio.set_event_loop(self.loop)
             asyncio.run(self.go())
             print("Target done")
         finally:
@@ -48,7 +47,8 @@ class JumpingSpider:
 
         print("Start")
         print("Start thread:" + str(threading.current_thread().ident))
-        self.loop.run_in_executor(self.pool, self.target)
+        thread = threading.Thread(target=self.target)
+        thread.start()
         print("Start done")
         return "Starting execution"
 
