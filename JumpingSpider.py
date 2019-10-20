@@ -27,7 +27,7 @@ class JumpingSpider:
         print("Spider is locked and loaded - performing initial jump")
         result = await self.control.spinMotor(0, 4, 1)
 
-        basecmd = ["mplayer", "-ao", "alsa:device=bluetooth"]
+        basecmd = ["mplayer", "-ao", "alsa:device=bluealsa"]
 
         if sys.platform == 'win32':
             basecmd = ["C:\\Program Files\\VideoLAN\\VLC\\vlc.exe"]
