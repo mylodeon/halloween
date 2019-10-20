@@ -5,8 +5,12 @@ api = Flask(__name__)
 spider = JumpingSpider.JumpingSpider()
 
 @api.route('/spider', methods=['GET'])
-def get_companies():
+def startSpider():
   return spider.start()
+
+@api.route('/spider-stop', methods=['GET'])
+def stopSpider():
+  return spider.stop()
 
 @api.route('/health', methods=['GET'])
 def get_health():

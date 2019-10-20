@@ -3,58 +3,35 @@
 import time
 import ControlModule
 import asyncio
-import concurrent;
-import threading;
 
 class JumpingSpider:
+    def __init__(self):
+        self.control = ControlModule.ControlModule(self.go)
 
-    #Name of Individual MOTORS 
-    control = ControlModule.ControlModule()
-    iter = 1
-
-    pool = concurrent.futures.ProcessPoolExecutor()
-
-    busy = 0
-
-    ##This segment drives the motors in the direction listed below:
-    ## forward and reverse takes speed in percentage(0-100)
-
-    async def go(self):
-    #-----------To Drive the Motors Forward------------# 
-        print("Go thread:" + str(threading.current_thread().ident))
-        self.iter = self.iter + 1
-        print("Go " + str(self.iter))
-        print(threading.current_thread().ident)
-        result = await self.control.spinMotor(0, 5, 1)
-        result = await self.control.spinMotor(1, 5, 1)
-        result = await self.control.spinMotor(2, 5, 1)
-        result = await self.control.spinMotor(3, 5, 1)
-        print("Go " + str(self.iter) + " done")
+    async def reset(self):
+        print("Resetting JumpingSpider")
+        result = await self.control.spinMotor(0, 60, 1, lambda: self.control.isButtonPressed(0))
+        print("Done resetting JumpingSpider")
         return result
 
-    def target(self, timeout=None):
-        print("Target  thread:" + str(threading.current_thread().ident))
-        try:
-            loop = asyncio.new_event_loop()
-            self.busy = 1
-            print("Target")
-            print(threading.current_thread().ident)
-            loop.run_until_complete(self.go())
-            print("Target done")
-        finally:
-            self.busy = 0
+    async def go(self):
+        if not self.control.isButtonPressed(0):
+            return await self.reset()
+
+        print("Spider is locked and loaded - performing initial jump")
+        result = await self.control.spinMotor(0, 4, 1)
+        
+        print("Waiting for effect")
+        result = await asyncio.sleep(3.5)
+
+        print("Bringing spider back in")
+        result = await self.control.spinMotor(0, 20, 1, lambda: not self.control.isButtonPressed(0))
+
+        print("JumpingSpider done")
+        return result
 
     def start(self):
-        if self.busy == 1:
-            return "Busy"
-
-        print("Start")
-        print("Start thread:" + str(threading.current_thread().ident))
-        thread = threading.Thread(target=self.target)
-        thread.start()
-        print("Start done")
-        return "Starting execution"
+        return self.control.start()
 
     def stop(self):
-    #-----------To Drive the Motors Forward------------# 
         return self.control.stop()
