@@ -27,6 +27,7 @@ class JumpingSpider:
         if not self.control.isButtonPressed(0):
             self.playfile = False
 
+            print("Starting sound")
             basecmd = ["mplayer", "-ao", "alsa:device=bluealsa"]
             if sys.platform == 'win32':
                 basecmd = ["C:\\Program Files\\VideoLAN\\VLC\\vlc.exe"]
