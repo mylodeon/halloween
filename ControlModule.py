@@ -35,10 +35,10 @@ class ControlModule:
 
     leds = [led0, led1, led2]
 
-    debugled0 = LED(33)
-    debugled1 = LED(35)
-    debugled2 = LED(36)
-    debugled3 = LED(37)
+    debugled0 = LED(13)
+    debugled1 = LED(19)
+    debugled2 = LED(16)
+    debugled3 = LED(26)
 
     debugleds = [debugled0, debugled1, debugled2, debugled3]
 
