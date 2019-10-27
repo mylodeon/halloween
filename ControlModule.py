@@ -23,19 +23,24 @@ class ControlModule:
 
     motors = [motor0, motor1, motor2, motor3]
 
-    button0 = Button(16)
-    button1 = Button(20)
-    button2 = Button(21)
-    button3 = Button(26)
+    button0 = Button(2)
+    button1 = Button(3)
+    button2 = Button(8)
 
-    buttons = [button0, button1, button2,button3]
+    buttons = [button0, button1, button2]
 
-    led0 = LED(19)
-    led1 = LED(13)
-    led2 = LED(6)
-    led3 = LED(5)
+    led0 = LED(15)
+    led1 = LED(20)
+    led2 = LED(21)
 
-    leds = [led0, led1, led2, led3]
+    leds = [led0, led1, led2]
+
+    debugled0 = LED(33)
+    debugled1 = LED(35)
+    debugled2 = LED(36)
+    debugled3 = LED(37)
+
+    debugleds = [debugled0, debugled1, debugled2, debugled3]
 
     if sys.platform == 'win32':
         Device.pin_factory.pin(16).drive_low()
@@ -88,6 +93,14 @@ class ControlModule:
         
     def disableLed(self, ledNumber):
         led = self.leds[ledNumber]
+        led.off()
+
+    def debugOn(self, ledNumber):
+        led = self.debugleds[ledNumber]
+        led.on()
+        
+    def debugOff(self, ledNumber):
+        led = self.debugleds[ledNumber]
         led.off()
 
     async def spinMotor(self, motorNumber, duration, direction=1, stopRoutine=None):

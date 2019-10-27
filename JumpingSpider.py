@@ -50,19 +50,29 @@ class JumpingSpider:
 
         print("Spider is locked and loaded - performing initial jump")
         self.playfile = True
+        self.control.debugOn(0)
         result = await self.control.spinMotor(0, 30, 1, lambda: self.startPlayingFile() or self.control.isButtonPressed(0))
+        
+        self.control.debugOn(1)
         self.playfile = True
 
         print("Waiting for effect")
         result = await asyncio.sleep(3.5)
+        self.control.debugOn(2)
 
         print("Bringing spider back in")
         result = await self.control.spinMotor(0, 30, 1, lambda: not self.control.isButtonPressed(0))
+        self.control.debugOn(3)
 
         if self.audioPlayer:
             self.audioPlayer.wait()
 
         self.control.disableLed(0)
+        self.control.debugOff(0)
+        self.control.debugOff(1)
+        self.control.debugOff(2)
+        self.control.debugOff(3)
+
         print("JumpingSpider done")
         return result
 
