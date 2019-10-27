@@ -44,6 +44,7 @@ class JumpingSpider:
 
     async def go(self):
         if not self.control.isButtonPressed(0):
+            print("Spider is not ready - resetting")
             return await self.reset()
 
         self.control.enableLed(0)
@@ -52,7 +53,7 @@ class JumpingSpider:
         self.playfile = True
         self.control.debugOn(0)
         result = await self.control.spinMotor(0, 30, 1, lambda: self.startPlayingFile() or self.control.isButtonPressed(0))
-        
+
         self.control.debugOn(1)
         self.playfile = True
 
