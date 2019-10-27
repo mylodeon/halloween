@@ -69,6 +69,8 @@ class JumpingSpider:
         result = await self.control.spinMotor(0, 30, 1, lambda: self.control.isButtonPressed(0))
         self.control.debugOn(3)
 
+        result = await self.control.spinMotor(0, 1, 1)
+
         if self.audioPlayer:
             self.audioPlayer.wait()
 
