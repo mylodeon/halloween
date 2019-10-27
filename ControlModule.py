@@ -25,7 +25,7 @@ class ControlModule:
 
     button0 = Button(2)
     button1 = Button(3)
-    button2 = Button(8)
+    button2 = Button(14)
 
     buttons = [button0, button1, button2]
 
