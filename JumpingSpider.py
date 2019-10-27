@@ -56,7 +56,7 @@ class JumpingSpider:
         print("Spider is locked and loaded - performing initial jump")
         self.playfile = True
         self.control.debugOn(0)
-        result = await self.control.spinMotor(0, 30, 1, lambda: self.startPlayingFile() or self.control.isButtonPressed(0))
+        result = await self.control.spinMotor(0, 10, 1, lambda: self.startPlayingFile())
 
         self.control.debugOn(1)
         self.playfile = True
