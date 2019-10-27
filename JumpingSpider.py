@@ -66,7 +66,7 @@ class JumpingSpider:
         self.control.debugOn(2)
 
         print("Bringing spider back in")
-        result = await self.control.spinMotor(0, 30, 1, lambda: not self.control.isButtonPressed(0))
+        result = await self.control.spinMotor(0, 30, 1, lambda: self.control.isButtonPressed(0))
         self.control.debugOn(3)
 
         if self.audioPlayer:
