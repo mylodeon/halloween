@@ -15,9 +15,13 @@ class JumpingSpider:
         os.system('pkill -9 mplayer')
     
     async def reset(self):
+        self.control.debugOn(0)
+        self.control.debugOn(3)
         print("Resetting JumpingSpider")
         self.stopAudio()
         result = await self.control.spinMotor(0, 60, 1, lambda: self.control.isButtonPressed(0))
+        self.control.debugOff(0)
+        self.control.debugOff(3)
         print("Done resetting JumpingSpider")
         return result
 
