@@ -36,7 +36,7 @@ class JumpingSpider:
             self.playfile = False
 
             print("Starting sound")
-            basecmd = ["mplayer", "-ao", "alsa:device=bluealsa"]
+            basecmd = ["mplayer", "-ao", "alsa:device=hw=0.0"]
             if sys.platform == 'win32':
                 basecmd = ["C:\\Program Files\\VideoLAN\\VLC\\vlc.exe"]
 
