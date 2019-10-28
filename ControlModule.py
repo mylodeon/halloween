@@ -42,8 +42,8 @@ class ControlModule:
 
     debugleds = [debugled0, debugled1, debugled2, debugled3]
 
-    if sys.platform == 'win32':
-        Device.pin_factory.pin(16).drive_low()
+    # if sys.platform == 'win32':
+    #     Device.pin_factory.pin(16).drive_low()
 
     iterationNumber = 1
     currentRun = 0

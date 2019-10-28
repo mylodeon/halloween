@@ -6,13 +6,20 @@ import asyncio
 import os
 import sys
 from subprocess import Popen
+import pygame
 
 class JumpingSpider:
     def __init__(self):
         self.control = ControlModule.ControlModule(self.go)
+        pygame.mixer.pre_init(44100, -16, 2, 1024)
+        #pygame.init()
+        pygame.mixer.quit()
+        pygame.mixer.init(44100, -16, 2, 1024)
+        self.sound = pygame.mixer.Sound("jump.wav")
 
     def stopAudio(self):
-        os.system('pkill -9 mplayer')
+        self.sound.stop()
+        return
     
     async def reset(self):
         self.control.debugOn(0)
@@ -20,6 +27,10 @@ class JumpingSpider:
         print("Resetting JumpingSpider")
         self.stopAudio()
         result = await self.control.spinMotor(0, 60, 1, lambda: self.control.isButtonPressed(0))
+
+        print("Adding another 3 seconds")
+        result = await self.control.spinMotor(0, 3, 1)
+
         self.control.debugOff(0)
         self.control.debugOff(3)
         print("Done resetting JumpingSpider")
@@ -29,13 +40,14 @@ class JumpingSpider:
     audioPlayer = None
 
     def startPlayingFile(self):
-        print("Starting sound")
-        basecmd = ["mplayer", "-ao", "alsa:device=hw=0.0"]
-        if sys.platform == 'win32':
-            basecmd = ["C:\\Program Files\\VideoLAN\\VLC\\vlc.exe"]
+        if not self.playfile:
+            return False
 
-        myfile = "jump.wav"
-        self.audioPlayer = Popen(basecmd + [myfile])
+        if not self.control.isButtonPressed(0):
+            self.playfile = False
+            self.sound.play()
+
+        return False
 
     async def go(self):
         if not self.control.isButtonPressed(0):
@@ -49,24 +61,16 @@ class JumpingSpider:
         self.control.debugOn(0)
 
         print("Play")
-        self.startPlayingFile()
-        result = await self.control.spinMotor(0, 10, 1)
-
+        result = await self.control.spinMotor(0, 10, 1, lambda: self.startPlayingFile())
         self.control.debugOn(1)
-        self.playfile = True
-
-        ##print("Waiting for effect")
-        ##result = await asyncio.sleep(3.5)
-        self.control.debugOn(2)
 
         print("Bringing spider back in")
-        result = await self.control.spinMotor(0, 30, 1, lambda: self.control.isButtonPressed(0))
-        self.control.debugOn(3)
+        result = await self.control.spinMotor(0, 60, 1, lambda: self.control.isButtonPressed(0))
+        self.control.debugOn(2)
 
+        print("Adding another 3 seconds")
         result = await self.control.spinMotor(0, 3, 1)
-
-        if self.audioPlayer:
-            self.audioPlayer.wait()
+        self.control.debugOn(3)
 
         self.control.disableLed(0)
         self.control.debugOff(0)
