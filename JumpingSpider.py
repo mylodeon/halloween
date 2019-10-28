@@ -28,8 +28,8 @@ class JumpingSpider:
         self.stopAudio()
         result = await self.control.spinMotor(0, 60, 1, lambda: self.control.isButtonPressed(0))
 
-        print("Adding another 3 seconds")
-        result = await self.control.spinMotor(0, 3, 1)
+        print("Adding another 2 seconds")
+        result = await self.control.spinMotor(0, 2, 1)
 
         self.control.debugOff(0)
         self.control.debugOff(3)
@@ -68,8 +68,8 @@ class JumpingSpider:
         result = await self.control.spinMotor(0, 60, 1, lambda: self.control.isButtonPressed(0))
         self.control.debugOn(2)
 
-        print("Adding another 3 seconds")
-        result = await self.control.spinMotor(0, 3, 1)
+        print("Adding another 2 seconds")
+        result = await self.control.spinMotor(0, 2, 1)
         self.control.debugOn(3)
 
         self.control.disableLed(0)
