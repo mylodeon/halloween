@@ -29,12 +29,6 @@ class JumpingSpider:
     audioPlayer = None
 
     def startPlayingFile(self):
- ##       if not self.playfile:
-   ##         return False
-
-     ##   if not self.control.isButtonPressed(0):
-       ##     self.playfile = False
-
         print("Starting sound")
         basecmd = ["mplayer", "-ao", "alsa:device=hw=0.0"]
         if sys.platform == 'win32':
@@ -42,9 +36,6 @@ class JumpingSpider:
 
         myfile = "jump.wav"
         self.audioPlayer = Popen(basecmd + [myfile])
-
-##        return False
-
 
     async def go(self):
         if not self.control.isButtonPressed(0):
@@ -56,6 +47,8 @@ class JumpingSpider:
         print("Spider is locked and loaded - performing initial jump")
         self.playfile = True
         self.control.debugOn(0)
+
+        print("Play")
         lambda: self.startPlayingFile()
         result = await self.control.spinMotor(0, 10, 1)
 
