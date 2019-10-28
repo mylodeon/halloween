@@ -55,8 +55,8 @@ class JumpingSpider:
         self.control.debugOn(1)
         self.playfile = True
 
-        print("Waiting for effect")
-        result = await asyncio.sleep(3.5)
+        ##print("Waiting for effect")
+        ##result = await asyncio.sleep(3.5)
         self.control.debugOn(2)
 
         print("Bringing spider back in")
