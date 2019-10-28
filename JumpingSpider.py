@@ -49,7 +49,7 @@ class JumpingSpider:
         self.control.debugOn(0)
 
         print("Play")
-        lambda: self.startPlayingFile()
+        self.startPlayingFile()
         result = await self.control.spinMotor(0, 10, 1)
 
         self.control.debugOn(1)
