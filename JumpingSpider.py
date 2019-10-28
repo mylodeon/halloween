@@ -29,21 +29,21 @@ class JumpingSpider:
     audioPlayer = None
 
     def startPlayingFile(self):
-        if not self.playfile:
-            return False
+ ##       if not self.playfile:
+   ##         return False
 
-        if not self.control.isButtonPressed(0):
-            self.playfile = False
+     ##   if not self.control.isButtonPressed(0):
+       ##     self.playfile = False
 
-            print("Starting sound")
-            basecmd = ["mplayer", "-ao", "alsa:device=hw=0.0"]
-            if sys.platform == 'win32':
-                basecmd = ["C:\\Program Files\\VideoLAN\\VLC\\vlc.exe"]
+        print("Starting sound")
+        basecmd = ["mplayer", "-ao", "alsa:device=hw=0.0"]
+        if sys.platform == 'win32':
+            basecmd = ["C:\\Program Files\\VideoLAN\\VLC\\vlc.exe"]
 
-            myfile = "jump.wav"
-            self.audioPlayer = Popen(basecmd + [myfile])
+        myfile = "jump.wav"
+        self.audioPlayer = Popen(basecmd + [myfile])
 
-        return False
+##        return False
 
 
     async def go(self):
