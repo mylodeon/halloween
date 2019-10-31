@@ -1,0 +1,12 @@
+[Unit]
+Description=Relay pi
+After=multi-user.target
+
+[Service]
+Type=idle
+WorkingDirectory=/home/pi/relay-pi
+ExecStart=/usr/bin/node /home/pi/relay-pi/startup.js
+
+[Install]
+WantedBy=multi-user.target
+
