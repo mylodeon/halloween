@@ -5,7 +5,7 @@ After=multi-user.target
 [Service]
 Type=idle
 WorkingDirectory=/home/pi/halloween/relay-pi
-ExecStart=/usr/bin/node /home/pi/relay-pi/halloween/startup.js
+ExecStart=/usr/bin/node /home/pi/halloween/relay-pi/startup.js
 
 [Install]
 WantedBy=multi-user.target
